@@ -1,0 +1,210 @@
+body {
+    font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    background: #fdfdfd;
+    margin: 0;
+    padding: 0;
+}
+
+.main-content {
+    background: #E0E0E0;
+    max-width: 1100px;
+    margin: 2em auto;
+    padding: 2em 2em 2em 2em;
+    border-radius: 0.5em;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+h1 {
+    text-align: center;
+    font-size: 2.5em;
+    margin-top: 1.2em;
+    margin-bottom: 1.2em;
+    letter-spacing: 2px;
+    color: #000;
+    text-shadow: 0 2px 8px rgba(161,22,46,0.08);
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.decklist {
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 15px;
+    width: 45%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.decklist h2 {
+    text-align: center;
+    color: #555;
+}
+
+.addition {
+    background-color: #d4edda;
+    padding: 5px;
+    margin: 5px 0;
+}
+
+.removal {
+    background-color: #f8d7da;
+    padding: 5px;
+    margin: 5px 0;
+}
+
+.change {
+    background-color: #fff3cd;
+    padding: 5px;
+    margin: 5px 0;
+}
+
+footer {
+    text-align: center;
+    margin-top: 20px;
+    color: #777;
+}
+
+.comparison-table {
+    margin-top: 2em;
+    width: 100%;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.wide-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 1.1em;
+    background: #fafafa;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    border-radius: 0.5em;
+    overflow: hidden;
+}
+
+.wide-table th {
+    background: #a1162e;
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.15em;
+    letter-spacing: 1px;
+    border: none;
+    padding: 0.8em 1em;
+}
+
+.wide-table td {
+    border: 1px solid #ddd;
+    padding: 0.7em 1em;
+    text-align: left;
+    background: #fff;
+}
+
+.wide-table td.center {
+    text-align: center;
+    vertical-align: middle;
+    background: #fff;
+}
+
+.added, .removed, .changed {
+    background: #fff;
+}
+
+.label {
+    padding: 0.2em 0.7em;
+    border-radius: 0.5em;
+    font-size: 0.95em;
+    font-weight: bold;
+    display: inline-block;
+}
+.label-added {
+    background: #4caf50;
+    color: #fff;
+}
+.label-removed {
+    background: #f44336;
+    color: #fff;
+}
+.label-changed {
+    background: #ff9800;
+    color: #fff;
+}
+
+.reset-btn {
+    display: block;
+    margin: 2em auto;
+    padding: 0.7em 2em;
+    font-size: 1.1em;
+    background: #1976d2;
+    color: #fff;
+    border: none;
+    border-radius: 0.5em;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(25,118,210,0.08);
+    transition: background 0.2s;
+}
+.reset-btn:hover {
+    background: #a1162e;
+}
+
+.decklist-form {
+    display: flex;
+    gap: 3em;
+    justify-content: center;
+    margin-bottom: 2em;
+    padding: 0 2em;
+}
+
+.decklist-form > div {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.decklist-form label {
+    font-weight: 600;
+    font-size: 1.1em;
+    color: #222;
+    margin-bottom: 0.5em;
+    display: block;
+    letter-spacing: 1px;
+}
+
+.decklist-form textarea {
+    width: 350px;
+    min-height: 260px;
+    font-size: 1.08em;
+    padding: 1em;
+    border-radius: 0.5em;
+    border: 2px solid #bbb;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(161,22,46,0.07);
+    resize: vertical;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    margin-bottom: 0.5em;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+}
+
+.decklist-form textarea:focus {
+    border-color: #a1162e;
+    box-shadow: 0 0 0 2px #a1162e33;
+    outline: none;
+}
+
+.added {
+    background: #eaffea !important;   /* light green */
+}
+
+.removed {
+    background: #ffecec !important;   /* light red */
+}
+
+.changed {
+    background: #fffbe5 !important;   /* light yellow */
+}

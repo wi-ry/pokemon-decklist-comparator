@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles.css">
+    <title>Pokémon TCG Decklist Comparator</title>
+    <style>
+        .decklist-form {
+            display: flex;
+            gap: 2em;
+            justify-content: center;
+            margin-bottom: 2em;
+        }
+        .decklist-form > div {
+            flex: 1;
+        }
+        .hidden {
+            display: none !important;
+        }
+        .reset-btn {
+            display: block;
+            margin: 2em auto;
+            padding: 0.7em 2em;
+            font-size: 1.1em;
+            background: #1976d2;
+            color: #fff;
+            border: none;
+            border-radius: 1em;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-content">
+        <h1>Pokémon TCG Decklist Comparison</h1>
+        <form id="decklistForm" action="/compare" method="POST" class="decklist-form <%= (decklist1 && decklist2) ? 'hidden' : '' %>">
+            <div>
+                <label for="decklist1">Decklist 1:</label><br>
+                <textarea id="decklist1" name="decklist1" rows="12" cols="40"><%= decklist1 ? decklist1.raw : '' %></textarea>
+            </div>
+            <div>
+                <label for="decklist2">Decklist 2:</label><br>
+                <textarea id="decklist2" name="decklist2" rows="12" cols="40"><%= decklist2 ? decklist2.raw : '' %></textarea>
+            </div>
+            <!-- Button is hidden, auto-submit is handled by JS -->
+            <button type="submit" id="compareBtn" style="display:none;">Compare</button>
+        </form>
+        <% if (decklist1 && decklist2) { %>
+            <button class="reset-btn" id="resetBtn">Reset</button>
+        <% } %>
+        <div class="comparison-table <%= (decklist1 && decklist2) ? '' : 'hidden' %>">
+            <h2>Side-by-Side Comparison</h2>
+            <table class="wide-table">
+                <thead>
+                    <tr>
+                        <th style="width:40%;">Decklist 1</th>
+                        <th style="width:20%;">Change</th>
+                        <th style="width:40%;">Decklist 2</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% 
+                        const allCards = {};
+                        (decklist1 && decklist1.cards || []).forEach(card => {
+                            allCards[card.name + '|||' + card.set] = { left: card, right: null };
+                        });
+                        (decklist2 && decklist2.cards || []).forEach(card => {
+                            if (allCards[card.name + '|||' + card.set]) {
+                                allCards[card.name + '|||' + card.set].right = card;
+                            } else {
+                                allCards[card.name + '|||' + card.set] = { left: null, right: card };
+                            }
+                        });
+                        Object.keys(allCards).forEach(key => {
+                            const left = allCards[key].left;
+                            const right = allCards[key].right;
+                    %>
+                    <tr>
+                        <td class="<%= !left ? 'added' : (right && left.count !== right.count ? 'changed' : '') %>">
+                            <%= left ? left.count + 'x ' + left.name + ' ' + left.set : '' %>
+                        </td>
+                        <td class="center">
+                            <% if (!left) { %>
+                                <span class="label label-added">Added</span>
+                            <% } else if (!right) { %>
+                                <span class="label label-removed">Removed</span>
+                            <% } else if (left.count !== right.count) { %>
+                                <span class="label label-changed">Changed</span>
+                            <% } %>
+                        </td>
+                        <td class="<%= !right ? 'removed' : (left && left.count !== right.count ? 'changed' : '') %>">
+                            <%= right ? right.count + 'x ' + right.name + ' ' + right.set : '' %>
+                        </td>
+                    </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        // Auto-submit when both textareas have data
+        document.addEventListener('DOMContentLoaded', function() {
+            var form = document.getElementById('decklistForm');
+            var decklist1 = document.getElementById('decklist1');
+            var decklist2 = document.getElementById('decklist2');
+            var compareBtn = document.getElementById('compareBtn');
+            var resetBtn = document.getElementById('resetBtn');
+
+            function checkAndSubmit() {
+                if (decklist1.value.trim() && decklist2.value.trim()) {
+                    form.submit();
+                }
+            }
+
+            if (form) {
+                decklist1.addEventListener('input', checkAndSubmit);
+                decklist2.addEventListener('input', checkAndSubmit);
+            }
+
+            if (resetBtn) {
+                resetBtn.addEventListener('click', function() {
+                    window.location.href = '/';
+                });
+            }
+        });
+    </script>
+</body>
+</html>
