@@ -36,11 +36,15 @@
         <h1>Pokémon TCG Decklist Comparison</h1>
         <form id="decklistForm" action="/compare" method="POST" class="decklist-form <%= (decklist1 && decklist2) ? 'hidden' : '' %>">
             <div>
-                <label for="decklist1">Decklist 1:</label><br>
+                <label for="decklist1url">Decklist 1 URL:</label>
+                <input type="url" id="decklist1url" name="decklist1url" placeholder="https://limitlesstcg.com/decks/list/..." style="width: 350px; margin-bottom: 1em;">
+                <label for="decklist1">Decklist 1:</label>
                 <textarea id="decklist1" name="decklist1" rows="12" cols="40"><%= decklist1 ? decklist1.raw : '' %></textarea>
             </div>
             <div>
-                <label for="decklist2">Decklist 2:</label><br>
+                <label for="decklist2url">Decklist 2 URL:</label>
+                <input type="url" id="decklist2url" name="decklist2url" placeholder="https://limitlesstcg.com/decks/list/..." style="width: 350px; margin-bottom: 1em;">
+                <label for="decklist2">Decklist 2:</label>
                 <textarea id="decklist2" name="decklist2" rows="12" cols="40"><%= decklist2 ? decklist2.raw : '' %></textarea>
             </div>
             <!-- Button is hidden, auto-submit is handled by JS -->
@@ -78,7 +82,11 @@
                     %>
                     <tr>
                         <td class="<%= !left ? 'added' : (right && left.count !== right.count ? 'changed' : '') %>">
-                            <%= left ? left.count + 'x ' + left.name + ' ' + left.set : '' %>
+                            <% if (left) { %>
+                                <span class="count-bubble"><%= left.count %></span>
+                                <span class="card-name" title="Card #: <%= left.number %>"><%= left.name %></span>
+                                <span class="set-label"><%= left.set %></span>
+                            <% } %>
                         </td>
                         <td class="center">
                             <% if (!left) { %>
@@ -90,7 +98,11 @@
                             <% } %>
                         </td>
                         <td class="<%= !right ? 'removed' : (left && left.count !== right.count ? 'changed' : '') %>">
-                            <%= right ? right.count + 'x ' + right.name + ' ' + right.set : '' %>
+                            <% if (right) { %>
+                                <span class="count-bubble"><%= right.count %></span>
+                                <span class="card-name" title="Card #: <%= right.number %>"><%= right.name %></span>
+                                <span class="set-label"><%= right.set %></span>
+                            <% } %>
                         </td>
                     </tr>
                     <% }); %>
@@ -125,5 +137,28 @@
             }
         });
     </script>
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    var form = document.getElementById('decklistForm');
+    var decklist1url = document.getElementById('decklist1url');
+    var decklist2url = document.getElementById('decklist2url');
+
+    function checkAndSubmit() {
+        if (
+            decklist1url &&
+            decklist2url &&
+            decklist1url.value.trim().length > 0 &&
+            decklist2url.value.trim().length > 0
+        ) {
+            form.submit();
+        }
+    }
+
+    if (decklist1url && decklist2url) {
+        decklist1url.addEventListener('input', checkAndSubmit);
+        decklist2url.addEventListener('input', checkAndSubmit);
+    }
+});
+</script>
 </body>
 </html>

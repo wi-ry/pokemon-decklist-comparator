@@ -7,8 +7,10 @@
     "start": "node src/app.js"
   },
   "dependencies": {
+    "cheerio": "^1.1.2",
+    "ejs": "^3.1.6",
     "express": "^4.17.1",
-    "ejs": "^3.1.6"
+    "node-fetch": "^2.7.0"
   },
   "author": "",
   "license": "ISC"

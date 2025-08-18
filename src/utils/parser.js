@@ -24,13 +24,14 @@ function parseDecklist(raw) {
         }
         if (/^--/.test(line)) continue; // skip separator
 
-        // Match card lines: e.g. "4 Ralts ASR 60"
-        const match = line.match(/^(\d+)\s+(.+?)\s+([A-Z]+.*)$/);
+        // Match card lines: e.g. "2 Professor Turo's Scenario PAR 171"
+        const match = line.match(/^(\d+)\s+(.+?)\s+([A-Z0-9]+)\s+(\d+)$/);
         if (match) {
             cards.push({
                 count: parseInt(match[1], 10),
                 name: match[2].trim(),
                 set: match[3].trim(),
+                number: match[4].trim(),
                 type: currentType
             });
         }
