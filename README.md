@@ -11,31 +11,26 @@ This project is a web application that allows users to compare two Pokémon Trad
 ## Project Structure
 
 ```
-pokemon-decklist-comparator
-├── src
-│   ├── app.js          # Entry point of the application
-│   ├── compare.js      # Logic for comparing decklists
-│   ├── views
-│   │   └── index.ejs   # Template for rendering comparison results
-│   └── utils
-│       └── parser.js    # Utility functions for parsing decklists
-├── public
-│   └── styles.css      # Styles for the application
-├── package.json        # npm configuration file
-└── README.md           # Project documentation
+src
+├── app.js          # Entry point of the application
+├── compare.js      # Logic for comparing decklists
+├── views
+│   └── index.ejs   # Template for rendering comparison results
+└── utils
+    └── parser.js    # Utility functions for parsing decklists
+public
+└── styles.css      # Styles for the application
+package.json        # npm configuration file
+README.md           # Project documentation
 ```
 
 ## Installation
 
 1. Clone the repository:
    ```
-   git clone https://github.com/yourusername/pokemon-decklist-comparator.git
+   git clone https://github.com/wi-ry/pokemon-decklist-comparator.git
    ```
-2. Navigate to the project directory:
-   ```
-   cd pokemon-decklist-comparator
-   ```
-3. Install the dependencies:
+2. Install the dependencies:
    ```
    npm install
    ```
