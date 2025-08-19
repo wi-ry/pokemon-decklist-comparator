@@ -41,7 +41,7 @@ README.md           # Project documentation
    ```
    npm start
    ```
-2. Open your web browser and go to `http://localhost:3000` to access the application.
+2. Open your web browser and go to `http://localhost:3333` to access the application.
 
 ## Contributing
 
