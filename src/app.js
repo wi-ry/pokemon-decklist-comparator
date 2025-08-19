@@ -79,6 +79,38 @@ app.post('/compare', async (req, res) => {
     });
 });
 
+// Route: /compare/:id1/:id2
+app.get('/compare/:id1/:id2', async (req, res) => {
+    const { id1, id2 } = req.params;
+
+    try {
+        // Construct Limitless URLs
+        const url1 = `https://limitlesstcg.com/decks/list/${id1}`;
+        const url2 = `https://limitlesstcg.com/decks/list/${id2}`;
+
+        // Fetch and parse both decklists
+        const decklist1Raw = await fetchLimitlessDecklist(url1);
+        const decklist2Raw = await fetchLimitlessDecklist(url2);
+
+        const decklist1 = parser.parseDecklist(decklist1Raw);
+        const decklist2 = parser.parseDecklist(decklist2Raw);
+
+        const comparisonResult = compareDecklists(decklist1, decklist2);
+
+        res.render('index', {
+            decklist1,
+            decklist2,
+            additions: comparisonResult.additions || [],
+            removals: comparisonResult.removals || [],
+            changes: comparisonResult.changes || []
+        });
+
+    } catch (err) {
+        console.error("Error comparing decklists:", err);
+        res.status(500).send("Failed to fetch or compare decklists");
+    }
+});
+
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
